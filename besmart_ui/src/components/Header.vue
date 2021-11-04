@@ -42,6 +42,18 @@
             </v-list-item-icon>
             <v-list-item-title>Home</v-list-item-title>
           </v-list-item>
+          <v-list-item v-bind:to="'/money'">
+            <v-list-item-icon>
+              <v-icon>mdi-currency-eur</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title>Money</v-list-item-title>
+          </v-list-item>
+          <v-list-item v-bind:to="'/investing'">
+            <v-list-item-icon>
+              <v-icon>mdi-brain</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title>Investing</v-list-item-title>
+          </v-list-item>
           <v-list-item v-bind:to="'/about'">
             <v-list-item-icon>
               <v-icon>mdi-information-variant</v-icon>
