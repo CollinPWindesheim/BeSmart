@@ -7,13 +7,23 @@ const routes = [
   {
     path: "/",
     name: "Home",
-    component: () => import("../views/Home.vue")
+    component: () => import("../views/Home.vue"),
   },
   {
     path: "/about",
     name: "About",
-    component: () => import("../views/About")
-  }
+    component: () => import("../views/About.vue"),
+  },
+  {
+    path: "/money",
+    name: "Money",
+    component: () => import("../views/Money.vue"),
+  },
+  {
+    path: "/investing",
+    name: "Investing",
+    component: () => import("../views/Investing.vue"),
+  },
 ];
 
 const router = new VueRouter({
