@@ -1,5 +1,5 @@
 <template>
-<course-list color="red" cat="investing"></course-list>
+<course-list color="#FF3036" cat="investing"></course-list>
 </template>
 
 <script>

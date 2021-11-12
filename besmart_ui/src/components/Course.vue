@@ -11,25 +11,33 @@
 
         <v-carousel v-model="model" :continuous="false">
           <v-carousel-item>
-            <v-sheet
-              color="blue"
-              height="100%">
+            <v-parallax
+              dark
+              src="https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg"
+            >
               <v-row
-                class="fill-height"
                 align="center"
-                justify="center">
-                <div style="width: 100%; padding-left: 10%; padding-right: 10%; text-align: center;">
-                  <h1>Thank you for starting this course!</h1>
-                </div>
+                justify="center"
+              >
+                <v-col
+                  class="text-center"
+                  cols="12"
+                >
+                  <h1 class="text-h4 font-weight-thin mb-4">
+                    {{ data.title }}
+                  </h1>
+                  <h4 class="subheading">
+                    Thank you for choosing B€smart
+                  </h4>
+                </v-col>
               </v-row>
-            </v-sheet>
+            </v-parallax>
           </v-carousel-item>
           <v-carousel-item
             v-for="item in data.subjects"
-            :key="item.id"
-          >
+            :key="item.id">
             <v-sheet
-              color="blue"
+              :color="color"
               height="100%"
             >
               <v-row
@@ -42,12 +50,44 @@
                   <div v-if="item.slide.includes('https')">
                     <youtube :video-id="getID(item.slide)[1]" />
                   </div>
-                  <div v-else-if="item.slide.includes('../assets/')">
-                    <v-img v-bind:src="item.slide"></v-img>
+                  <div v-else-if="item.slide.includes('./assets/')">
+                    <v-img :src="item.slide"></v-img>
                   </div>
                   <div v-else>
                     {{ item.slide }}
                   </div>
+                </div>
+              </v-row>
+            </v-sheet>
+          </v-carousel-item>
+          <v-carousel-item>
+            <v-sheet
+              :color="color"
+              height="100%"
+            >
+              <v-row
+                class="fill-height"
+                align="center"
+                justify="center"
+              >
+                <div style="width: 100%; padding-left: 10%; padding-right: 10%; text-align: center;">
+                  <h1>questions</h1>
+                  <v-form>
+                    <v-container>
+                      <v-row>
+                        <v-col cols="12" md="6" v-for="item in data.questions" :key="item.id">
+                          <h3>{{ item.question }}</h3>
+                          <v-combobox
+                            :items="item.answers"
+                            label="Combobox"
+                            multiple
+                            outlined
+                            dense
+                          ></v-combobox>
+                        </v-col>
+                      </v-row>
+                    </v-container>
+                  </v-form>
                 </div>
               </v-row>
             </v-sheet>
@@ -90,6 +130,7 @@ export default {
   props: {
     value: Boolean,
     data: Object,
+    color: String,
   },
   data () {
     return {
@@ -122,6 +163,9 @@ export default {
     },
     getID(data){
       return data.split("=")
+    },
+    randomColor(){
+      return Math.floor(Math.random()*16777215).toString(16);
     }
   }
 };

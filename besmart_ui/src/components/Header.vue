@@ -1,8 +1,8 @@
 <template>
   <div id="header">
-    <v-app-bar app style="background: lightgray">
+    <v-app-bar app color="blue-grey darken-4" style="color: white;">
       <div class="d-flex align-center">
-        <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
+        <v-app-bar-nav-icon color="white" @click="drawer = true"></v-app-bar-nav-icon>
         <h1>
           BeSmart
         </h1>

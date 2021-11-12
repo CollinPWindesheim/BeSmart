@@ -1,6 +1,6 @@
 <template>
   <div id="containter">
-    <course-list cat="money" color="blue"></course-list>
+    <course-list cat="money" color="#49a329"></course-list>
   </div>
 </template>
 
