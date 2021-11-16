@@ -50,8 +50,11 @@
                   <div v-if="item.slide.includes('https')">
                     <youtube :video-id="getID(item.slide)[1]" />
                   </div>
-                  <div v-else-if="item.slide.includes('./assets/')">
-                    <v-img :src="item.slide"></v-img>
+                  <div v-else-if="item.slide.includes('slideImageCommodity')">
+                    <v-img height="400px" width="900px" src="../assets/slideImageCommodity.jpg"></v-img>
+                  </div>
+                  <div v-else-if="item.slide.includes('slideImageInflation')">
+                    <v-img height="400px" width="900px" src="../assets/slideImageInflation.png"></v-img>
                   </div>
                   <div v-else>
                     {{ item.slide }}
@@ -60,38 +63,38 @@
               </v-row>
             </v-sheet>
           </v-carousel-item>
-          <v-carousel-item>
-            <v-sheet
-              :color="color"
-              height="100%"
-            >
-              <v-row
-                class="fill-height"
-                align="center"
-                justify="center"
-              >
-                <div style="width: 100%; padding-left: 10%; padding-right: 10%; text-align: center;">
-                  <h1>questions</h1>
-                  <v-form>
-                    <v-container>
-                      <v-row>
-                        <v-col cols="12" md="6" v-for="item in data.questions" :key="item.id">
-                          <h3>{{ item.question }}</h3>
-                          <v-combobox
-                            :items="item.answers"
-                            label="Combobox"
-                            multiple
-                            outlined
-                            dense
-                          ></v-combobox>
-                        </v-col>
-                      </v-row>
-                    </v-container>
-                  </v-form>
-                </div>
-              </v-row>
-            </v-sheet>
-          </v-carousel-item>
+<!--          <v-carousel-item>-->
+<!--            <v-sheet-->
+<!--              :color="color"-->
+<!--              height="100%"-->
+<!--            >-->
+<!--              <v-row-->
+<!--                class="fill-height"-->
+<!--                align="center"-->
+<!--                justify="center"-->
+<!--              >-->
+<!--                <div style="width: 100%; padding-left: 10%; padding-right: 10%; text-align: center;">-->
+<!--                  <h1>questions</h1>-->
+<!--                  <v-form>-->
+<!--                    <v-container>-->
+<!--                      <v-row>-->
+<!--                        <v-col cols="12" md="6" v-for="item in data.questions" :key="item.id">-->
+<!--                          <h3>{{ item.question }}</h3>-->
+<!--                          <v-combobox-->
+<!--                            :items="item.answers"-->
+<!--                            label="Combobox"-->
+<!--                            multiple-->
+<!--                            outlined-->
+<!--                            dense-->
+<!--                          ></v-combobox>-->
+<!--                        </v-col>-->
+<!--                      </v-row>-->
+<!--                    </v-container>-->
+<!--                  </v-form>-->
+<!--                </div>-->
+<!--              </v-row>-->
+<!--            </v-sheet>-->
+<!--          </v-carousel-item>-->
         </v-carousel>
 
         <v-divider></v-divider>

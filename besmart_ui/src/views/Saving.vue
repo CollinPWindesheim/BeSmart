@@ -1,13 +1,10 @@
 <template>
-<h1>Work in progress</h1>
+  <h1>Work in progress</h1>
 </template>
 
 <script>
-
 export default {
-  name: "Investing",
-  components: {
-  }
+  name: "Saving"
 };
 </script>
 

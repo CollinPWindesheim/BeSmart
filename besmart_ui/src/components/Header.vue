@@ -54,6 +54,12 @@
             </v-list-item-icon>
             <v-list-item-title>Investing</v-list-item-title>
           </v-list-item>
+          <v-list-item v-bind:to="'/saving'">
+            <v-list-item-icon>
+              <v-icon>mdi-piggy-bank-outline</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title>Saving</v-list-item-title>
+          </v-list-item>
           <v-list-item v-bind:to="'/about'">
             <v-list-item-icon>
               <v-icon>mdi-information-variant</v-icon>
