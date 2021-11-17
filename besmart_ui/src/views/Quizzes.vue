@@ -72,6 +72,7 @@
         </v-hover>
       </v-col>
     </v-row>
+    Starting a quiz does not work yet!
   </v-container>
 </template>
 
