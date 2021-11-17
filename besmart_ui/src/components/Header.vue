@@ -3,6 +3,9 @@
     <v-app-bar app color="blue-grey darken-4" style="color: white;">
       <div class="d-flex align-center">
         <v-app-bar-nav-icon color="white" @click="drawer = true"></v-app-bar-nav-icon>
+        <router-link to="/">
+          <v-img width="75px" height="75px" src="../assets/logo-small.png"></v-img>
+        </router-link>
         <h1>
           BeSmart
         </h1>
@@ -59,6 +62,12 @@
               <v-icon>mdi-piggy-bank-outline</v-icon>
             </v-list-item-icon>
             <v-list-item-title>Saving</v-list-item-title>
+          </v-list-item>
+          <v-list-item v-bind:to="'/quizzes'">
+            <v-list-item-icon>
+              <v-icon>mdi-clipboard-check-multiple-outline</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title>Quizzes</v-list-item-title>
           </v-list-item>
           <v-list-item v-bind:to="'/about'">
             <v-list-item-icon>

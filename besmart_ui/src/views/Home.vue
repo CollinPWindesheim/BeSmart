@@ -1,39 +1,40 @@
 <template>
   <v-container>
-    <div class="top-picture"></div>
-    <v-container class="shortcut-menu" v-if="!isMobile">
+<!--    <div class="top-picture"></div>-->
+    <v-img src="../assets/background.jpg" class="top-picture" gradient="to top right, rgba(246, 121, 72, .33), rgba(247, 80, 78, .33)"></v-img>
+    <v-container class="shortcut-menu" v-if="isMobile() === false">
       <v-row dense no-gutters>
         <v-col cols="12" md="3" align="center">
           <v-hover v-slot="{ hover }">
-            <v-card class="card-link rounded-circle" :elevation="hover ? 12 : 2" color="red" v-bind:to="'/money'">
+            <v-card class="card-link rounded-circle" color="red" v-bind:to="'/money'" :elevation="hover ? 24 : 2" >
               <h2 class="title-text">Money</h2>
             </v-card>
           </v-hover>
         </v-col>
         <v-col cols="12" md="3" align="center">
           <v-hover v-slot="{ hover }">
-            <v-card class="card-link rounded-circle" :elevation="hover ? 12 : 2" color="red" v-bind:to="'/investing'">
+            <v-card class="card-link rounded-circle" color="red" v-bind:to="'/investing'" :elevation="hover ? 24 : 2">
               <h2 class="title-text">Investing</h2>
             </v-card>
           </v-hover>
         </v-col>
         <v-col cols="12" md="3" align="center">
           <v-hover v-slot="{ hover }">
-            <v-card class="card-link rounded-circle" :elevation="hover ? 12 : 2" color="red">
+            <v-card class="card-link rounded-circle" :elevation="hover ? 24 : 2" color="red">
               <h2 class="title-text">Saving</h2>
             </v-card>
           </v-hover>
         </v-col>
         <v-col cols="12" md="3" align="center">
           <v-hover v-slot="{ hover }">
-            <v-card class="card-link rounded-circle" :elevation="hover ? 12 : 2" color="red" v-bind:to="'/about'">
+            <v-card class="card-link rounded-circle" :elevation="hover ? 24 : 2" color="red" v-bind:to="'/about'">
               <h2 class="title-text">About us</h2>
             </v-card>
           </v-hover>
         </v-col>
       </v-row>
     </v-container>
-    <v-container class="shortcut-menu" v-if="isMobile">
+    <v-container class="shortcut-menu" v-if="isMobile()">
       <v-row dense no-gutters>
         <v-col xs="6" align="center">
           <v-card class="card-link rounded-circle" color="red" v-bind:to="'/money'">
@@ -57,9 +58,9 @@
         </v-col>
       </v-row>
     </v-container>
-    <div class="bottom-white">
+<!--    <div class="bottom-white">-->
 
-    </div>
+<!--    </div>-->
   </v-container>
 </template>
 
@@ -87,27 +88,25 @@ export default {
   height: 200px;
   line-height: 200px;
   text-align: center;
+  z-index: 2;
 }
 
-.bottom-white{
-  height: 40%;
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: white;
-  z-index: 0;
-}
+/*.bottom-white{*/
+/*  height: 40%;*/
+/*  position: absolute;*/
+/*  left: 0;*/
+/*  right: 0;*/
+/*  bottom: 0;*/
+/*  background-color: white;*/
+/*  z-index: 0;*/
+/*}*/
 
 .top-picture {
-  height: 60%;
+  height: 100%;
   position: absolute;
   left: 0;
   right: 0;
   top: 0;
-  background-image: url("../assets/background.jpg");
-  background-size: 100%;
-  background-position: center;
   z-index: 0;
 }
 
