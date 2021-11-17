@@ -7,8 +7,12 @@
           :items="filterCategory"
           label="Combobox"
           multiple
+          solo
+          item-color="#F7504E"
+          color="#F7504E"
           chips
           clearable
+          placeholder="Choose categories"
         ></v-combobox>
       </v-col>
     </v-row>
@@ -72,7 +76,7 @@
         </v-hover>
       </v-col>
     </v-row>
-    Starting a quiz does not work yet!
+    <h3 style="color: white">Starting a quiz does not work yet!</h3>
   </v-container>
 </template>
 
@@ -137,6 +141,9 @@ export default {
 };
 </script>
 
-<style scoped>
-
+<style>
+.v-autocomplete:not(.v-input--is-focused).v-select--chips input {
+  max-height: inherit !important;
+  padding: 6px 0 !important;
+}
 </style>

@@ -145,8 +145,8 @@ export default {
     left: 0;
     right: 0;
     top: 0;
-    height: 28%;
-    background-size: 100%;
+    height: 100%;
+    background-size: cover;
     background-image: url("../assets/background.jpg");
     background-position: center;
     z-index: 0;

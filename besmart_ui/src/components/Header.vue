@@ -30,8 +30,10 @@
 
     <v-navigation-drawer
       v-model="drawer"
-      absolute
       temporary
+      app
+      hide-overlay
+      style="background: hsl(0 0% 100% / 0.1); backdrop-filter: blur(2rem)"
     >
       <v-list
         nav
@@ -41,39 +43,39 @@
 
           <v-list-item v-bind:to="'/'">
             <v-list-item-icon>
-              <v-icon>mdi-home</v-icon>
+              <v-icon color="white">mdi-home</v-icon>
             </v-list-item-icon>
-            <v-list-item-title>Home</v-list-item-title>
+            <v-list-item-title class="menu-items">Home</v-list-item-title>
           </v-list-item>
           <v-list-item v-bind:to="'/money'">
             <v-list-item-icon>
-              <v-icon>mdi-currency-eur</v-icon>
+              <v-icon color="white">mdi-currency-eur</v-icon>
             </v-list-item-icon>
-            <v-list-item-title>Money</v-list-item-title>
+            <v-list-item-title class="menu-items">Money</v-list-item-title>
           </v-list-item>
           <v-list-item v-bind:to="'/investing'">
             <v-list-item-icon>
-              <v-icon>mdi-brain</v-icon>
+              <v-icon color="white">mdi-brain</v-icon>
             </v-list-item-icon>
-            <v-list-item-title>Investing</v-list-item-title>
+            <v-list-item-title class="menu-items">Investing</v-list-item-title>
           </v-list-item>
           <v-list-item v-bind:to="'/saving'">
             <v-list-item-icon>
-              <v-icon>mdi-piggy-bank-outline</v-icon>
+              <v-icon color="white">mdi-piggy-bank-outline</v-icon>
             </v-list-item-icon>
-            <v-list-item-title>Saving</v-list-item-title>
+            <v-list-item-title class="menu-items">Saving</v-list-item-title>
           </v-list-item>
           <v-list-item v-bind:to="'/quizzes'">
             <v-list-item-icon>
-              <v-icon>mdi-clipboard-check-multiple-outline</v-icon>
+              <v-icon color="white">mdi-clipboard-check-multiple-outline</v-icon>
             </v-list-item-icon>
-            <v-list-item-title>Quizzes</v-list-item-title>
+            <v-list-item-title class="menu-items">Quizzes</v-list-item-title>
           </v-list-item>
           <v-list-item v-bind:to="'/about'">
             <v-list-item-icon>
-              <v-icon>mdi-information-variant</v-icon>
+              <v-icon color="white">mdi-information-variant</v-icon>
             </v-list-item-icon>
-            <v-list-item-title>About</v-list-item-title>
+            <v-list-item-title class="menu-items">About</v-list-item-title>
           </v-list-item>
 
         </v-list-item-group>
@@ -93,5 +95,7 @@ export default {
 </script>
 
 <style scoped>
-
+  .menu-items{
+    color: white;
+  }
 </style>

@@ -11,7 +11,7 @@
         <v-hover v-slot="{ hover }">
           <v-card
             class="mx-auto courseCard"
-            :color="color"
+            color="#F7504E"
             dark
             max-width="400"
             :elevation="hover ? 12 : 2"
@@ -108,7 +108,7 @@ export default {
             {id: 27, name: "Digital money", slide: "It is also easier to store, 100.000 euros in physical money is harder to store than 100.000 on your bank account (in other words, in a database)."},
             {id: 28, name: "Digital money", slide: "A couple of disadvantages of digital money is, that it is easier for governments to print, it removes a layer of privacy, and it is easier to be stolen. In 2020 more than 40% of all the dollars in its entire existence was “printed”, economics are worried this will cause very high inflation. When you buy something via your bank, the bank knows where and sometimes even on what you spend your money, this is a lot harder to know when you use physical money. It is also easier to get someones money in digital form, than physical. This has partly to do with the advantage that it is easier to store, since the disadvantage of this is, that when someone gets access to it, it will be also easy to steal larger sums at once. Additionally, people who are not very tech-savvy, or who are gullible, can be the victims of online scams. People go to extreme lengths to get, for example, elderly people to hand them their money, by pretending to be their family or their bank." },
           ]},
-        {id: 2, title: "Investing 101", description: "This course is about investing", category: "investing"},
+        {id: 2, title: "Investing 101", description: "This course is about investing", category: "money"},
         {id: 3, title: "Bitcoin", description: "An informational course about bitcoin", category: "money", subjects: [{id: 29, name: "Bitcoin", slide: "After digital money became mainstream, some people brainstormed about the idea of decentralized and/or peer-to-peer money. Decentralized money means, that no one is the owner of the currency. The classic banking system is very centralized and has owners, governments and central banks decide who prints the money and how much. Commercial banks, like ABN Amro, have ownership over your money while you have it stored in their database."},
             {id: 1, name: "Bitcoin", slide: "Peer-to-peer means no person in between you and the person you want to pay, or get paid from. Nowadays, if you pay at the supermarket, or one of your friends, the bank is the middleman. You have given the bank your money, they in return give (or used to give) you interest on it and when you make a payment, the bank sends this money to the right person(‘s bank account)."},
             {id: 2, name: "Bitcoin", slide: "In 2008, bitcoin was created by an unknow person/group known as Satoshi Nakamoto. It is based on cryptography and a distributed ledger, called a blockchain."},

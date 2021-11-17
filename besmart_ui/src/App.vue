@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <Header />
-    <v-main>
+    <v-main class="main-wrap">
       <router-view />
     </v-main>
     <Footer />
@@ -20,3 +20,17 @@ export default {
   }
 };
 </script>
+<style>
+.main-wrap{
+  background-image: url("./assets/background-image.jpg");
+  background-size: 100%;
+  background-attachment: fixed;
+}
+
+@media only screen and (max-width: 600px) {
+  .main-wrap{
+    background-position: center center;
+    background-size: cover;
+  }
+}
+</style>
