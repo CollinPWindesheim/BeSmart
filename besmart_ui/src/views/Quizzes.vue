@@ -47,6 +47,7 @@
                   rounded
                   text
                   style="background-color: white; color: black;"
+                  v-bind:to="'/quiz/' + item.id"
                 >
                   Start quiz
                 </v-btn>
