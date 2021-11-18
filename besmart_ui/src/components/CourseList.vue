@@ -73,7 +73,6 @@ export default {
   },
   props: {
   cat: String,
-  color: String,
   },
   data() {
     return {

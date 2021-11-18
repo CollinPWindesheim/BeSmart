@@ -40,7 +40,6 @@
         dense
       >
         <v-list-item-group v-model="group" active-class="red--text text--accent-4">
-
           <v-list-item v-bind:to="'/'">
             <v-list-item-icon>
               <v-icon color="white">mdi-home</v-icon>

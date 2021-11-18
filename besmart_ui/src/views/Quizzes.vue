@@ -26,16 +26,16 @@
         <v-hover v-slot="{ hover }">
           <v-card
             class="mx-auto courseCard"
-            :color="item.color"
+            color="#F7504E"
             dark
             max-width="400"
             max-height="300"
             :elevation="hover ? 12 : 2"
           >
             <v-card-title>
-              <span class="text-h6 font-weight-light">{{ item.name }}</span>
+              <span class="text-h6 font-weight-light">{{ item.name }}&nbsp;</span>
+              <v-chip>{{ item.cat }}</v-chip>
             </v-card-title>
-
             <v-card-text class="text-h5 font-weight-bold">
               Have you completed the course "{{ item.name }}"? If yes, this is a quiz you want to do.
             </v-card-text>
@@ -87,7 +87,7 @@ export default {
     return {
       select: [],
       quizzes: [
-        {id: 1, name: "Bitcoin", color: "#49a329", cat: "money", questions: [
+        {id: 1, name: "Bitcoin", cat: "money", questions: [
             {id: 1, question: "What for network is bitcoin?", answer: "d", answers: [{indicator: "A", text: "Centralized with a middleman"}, {indicator: "B", text: "Centralized peer-to-peer"}, {indicator: "C", text: "Decentralized with a middleman"}, {indicator: "D", text: "Decentralized peer-to-peer"}]},
             {id: 2, question: "What is decentralized?", answer: "a", answers: [{indicator: "A", text: "Activity or organization controlled by multiple instances"}, {indicator: "B", text: "Activity or organization that is decent in their work"}, {indicator: "C", text: "Activity or organization controlled by one person or group"}, {indicator: "D", text: "Activity or organization controlled by the government"}]},
             {id: 3, question: "What is peer-to-peer?", answer: "c", answers: [{indicator: "A", text: "Computer to computer connection, without another computer or server in the middle"}, {indicator: "B", text: "Two apple computers connected"}, {indicator: "C", text: "Connection between two computers, with another computer or server in the middle"}]},
@@ -95,7 +95,7 @@ export default {
             {id: 5, question: "Why is bitcoin called a “censorship free money”?", answer: "c", answers: [{indicator: "A", text: "Bitcoin network is backed by the government"}, {indicator: "B", text: "Bitcoin network’s moderators do not delete content"}, {indicator: "C", text: "Bitcoin network cannot be hacked and everyone can use it"}, {indicator: "D", text: "All of the above"}]}
           ]
         },
-        {id: 2, name: "What is money?", color: "#49a329", cat: "money", questions: [
+        {id: 2, name: "What is money?", cat: "money", questions: [
             {id: 1, question: "Are their limitations to the bartering system? If so, what limitations? (Multiple choice)", answer: "a,b,c", answers: [{indicator: "A", text: "Has to have a coincident of wants (one of the parties must be interested in the other ones products)"}, {indicator: "B", text: "No common currency (no truly equal trades)"}, {indicator: "C", text: "Not good for the environment"}, {indicator: "D", text: "No long term value storing"}, {indicator: "E", text: "All of the above"}, {indicator: "F", text: "No limitations"}]},
             {id: 2, question: "Is bartering the oldest form of transaction?", answer: "a", answers: [{indicator: "A", text: "Yes"}, {indicator: "B", text: "No"}]},
             {id: 3, question: "What does commodity money get its value from?", answer: "b", answers: [{indicator: "A", text: "The trust of the people in it"}, {indicator: "B", text: "The resources it is made out of"}, {indicator: "C", text: "Set by the government"}, {indicator: "D", text: "All of the above"}]},
