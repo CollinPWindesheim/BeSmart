@@ -82,7 +82,7 @@ export default {
           id: 1,
           title: "What is money?",
           description: "This course is about money and the history of money",
-          category: "money",
+          category: "investing",
           subjects: [
             {
               id: 1,

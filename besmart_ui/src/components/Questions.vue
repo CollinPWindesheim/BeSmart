@@ -1,16 +1,20 @@
 <template>
   <v-container class="div-wrapper">
-    <v-sheet elevation="6">
-      <v-tabs
-        background-color="#F7504E"
-        dark
-        next-icon="mdi-arrow-right-bold-box-outline"
-        prev-icon="mdi-arrow-left-bold-box-outline"
-        show-arrows
-      >
-        <template v-for="item in Quiz.questions">
-          <v-tab :key="item.id"> Question {{ item.id }} </v-tab>
-          <v-tab-item :key="item.id" class="tab-items">
+    <v-card style="text-align: center">
+      <v-tabs v-model="tab" background-color="#F7504E" dark>
+        <v-tab v-for="item in Quiz.questions" :key="item.id">
+          Question {{ item.id + 1 }}
+        </v-tab>
+        <v-tab :key="finish">Finish</v-tab>
+      </v-tabs>
+
+      <v-tabs-items v-model="tab">
+        <v-tab-item
+          v-for="item in Quiz.questions"
+          :key="item.id + 1"
+          class="tab-items"
+        >
+          <v-card flat>
             <v-row>
               <v-col cols="12">
                 <h1>{{ item.question }}</h1>
@@ -30,21 +34,19 @@
                 </div>
               </v-col>
             </v-row>
-          </v-tab-item>
-        </template>
-        <v-tab>Finish</v-tab>
-        <v-tab-item class="tab-items">
+          </v-card>
+        </v-tab-item>
+        <v-tab-item class="tab-items" style="opacity: 100%" :key="finish">
           <v-progress-linear
-            v-model="finalAnswer.perc"
+            :value="finalAnswer.perc"
             height="50"
-            :color="finalAnswer.color"
-            v-if="finalAnswer.perc > 0"
+            :color="color"
             striped
           >
             <strong>{{ Math.ceil(finalAnswer.perc) }}%</strong>
           </v-progress-linear>
           <div class="answerDiv">
-            <v-simple-table fixed-header height="50vh" :item-clas="row_classes">
+            <v-simple-table fixed-header height="45vh" :item-clas="row_classes">
               <template v-slot:default>
                 <thead>
                   <tr>
@@ -58,6 +60,7 @@
                     v-for="(i, index) in finalAnswer.answerCheck"
                     :key="i.id"
                     :class="row_classes(i)"
+                    @click="goToTab(index)"
                   >
                     <td>{{ index + 1 }}</td>
                     <td>{{ i.given }}</td>
@@ -76,8 +79,10 @@
             >Check your answers</v-btn
           >
         </v-tab-item>
-      </v-tabs>
-    </v-sheet>
+      </v-tabs-items>
+      <v-icon size="50" @click="tabBackward"> mdi-chevron-left </v-icon>
+      <v-icon size="50" @click="tabForward"> mdi-chevron-right </v-icon>
+    </v-card>
   </v-container>
 </template>
 
@@ -92,9 +97,10 @@ export default {
       radioGroup: [],
       finalAnswer: {
         perc: 0,
-        color: "blue",
         answerCheck: [],
       },
+      color: "",
+      tab: null,
     };
   },
   computed: {
@@ -107,12 +113,20 @@ export default {
     },
   },
   methods: {
+    goToTab(item) {
+      this.tab = item;
+    },
+    tabForward() {
+      this.tab = this.tab + 1;
+    },
+    tabBackward() {
+      this.tab = this.tab - 1;
+    },
     score() {
       let answers = this.createAnswerArray;
       let userAnswers = this.radioGroup;
       let numberRight = 0;
-      let color = "blue";
-      this.finalAnswer.answerCheck = []
+      this.finalAnswer.answerCheck = [];
 
       for (let i = 0; i < userAnswers.length; i++) {
         if (answers[i] === userAnswers[i]) {
@@ -128,15 +142,14 @@ export default {
       let percent = (numberRight / answers.length) * 100;
 
       if (percent < 55) {
-        color = "#F7504E";
+        this.color = "#F7504E";
       } else if (percent > 55 && percent < 75) {
-        color = "yellow";
+        this.color = "yellow";
       } else {
-        color = "lightgreen";
+        this.color = "green";
       }
 
       this.finalAnswer.perc = percent;
-      this.finalAnswer.color = color;
 
       // Put score in database here
     },
@@ -160,13 +173,11 @@ export default {
 
 .tab-items {
   text-align: center;
-  height: 70vh;
+  height: 63vh;
 }
 
 .checkButton {
-  position: absolute;
-  left: 40%;
-  bottom: 1%;
+  bottom: 3%;
 }
 
 .answerDiv {
@@ -182,6 +193,10 @@ export default {
 .right {
   background-color: lightgreen;
   color: black;
+}
+
+.hi {
+  background-color: green;
 }
 
 tr:hover {
