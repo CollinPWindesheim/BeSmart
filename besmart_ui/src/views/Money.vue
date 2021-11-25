@@ -11,11 +11,8 @@ export default {
   name: "Money",
   components: {
     CourseList,
-  }
-
+  },
 };
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

@@ -1,11 +1,18 @@
 <template>
   <v-container class="div-wrapper">
     <v-card style="text-align: center">
-      <v-tabs v-model="tab" background-color="#F7504E" dark>
+      <v-tabs
+        v-model="tab"
+        background-color="#F7504E"
+        dark
+        next-icon="mdi-arrow-right-bold-box-outline"
+        prev-icon="mdi-arrow-left-bold-box-outline"
+        show-arrows
+      >
         <v-tab v-for="item in Quiz.questions" :key="item.id">
           Question {{ item.id + 1 }}
         </v-tab>
-        <v-tab :key="finish">Finish</v-tab>
+        <v-tab key="finish">Finish</v-tab>
       </v-tabs>
 
       <v-tabs-items v-model="tab">
@@ -36,7 +43,7 @@
             </v-row>
           </v-card>
         </v-tab-item>
-        <v-tab-item class="tab-items" style="opacity: 100%" :key="finish">
+        <v-tab-item class="tab-items" style="opacity: 100%" key="finish">
           <v-progress-linear
             :value="finalAnswer.perc"
             height="50"
@@ -82,7 +89,31 @@
       </v-tabs-items>
       <v-icon size="50" @click="tabBackward"> mdi-chevron-left </v-icon>
       <v-icon size="50" @click="tabForward"> mdi-chevron-right </v-icon>
+      <v-btn
+        color="error"
+        style="position: absolute; right: 0; margin-right: 10px"
+        @click="YesNoDialog = !YesNoDialog"
+        >Close</v-btn
+      >
     </v-card>
+    <v-dialog v-model="YesNoDialog" width="500">
+      <v-card color="blue-grey darken-3" style="padding: 20px">
+        <v-card-text style="text-align: center; color: white">
+          <h3>Are you sure you want to quit?</h3>
+          <br />
+          <v-btn class="ma-1" color="error" @click="closeAll" outlined
+          >Yes</v-btn
+          >
+          <v-btn
+            class="ma-1"
+            color="success"
+            @click="YesNoDialog = false"
+            outlined
+          >No</v-btn
+          >
+        </v-card-text>
+      </v-card>
+    </v-dialog>
   </v-container>
 </template>
 
@@ -101,6 +132,7 @@ export default {
       },
       color: "",
       tab: null,
+      YesNoDialog: false,
     };
   },
   computed: {
@@ -113,6 +145,11 @@ export default {
     },
   },
   methods: {
+    closeAll() {
+      //do other things here that you want to do when you close the quiz
+      this.$router.push({ name: "Quizzes" });
+      this.YesNoDialog = false;
+    },
     goToTab(item) {
       this.tab = item;
     },
@@ -120,7 +157,11 @@ export default {
       this.tab = this.tab + 1;
     },
     tabBackward() {
-      this.tab = this.tab - 1;
+      if (this.tab === 0){
+        this.tab = this.Quiz.questions.length
+      } else {
+        this.tab = this.tab - 1;
+      }
     },
     score() {
       let answers = this.createAnswerArray;
@@ -151,7 +192,8 @@ export default {
 
       this.finalAnswer.perc = percent;
 
-      // Put score in database here
+      // Put score in database here this.finalAnswer
+      console.log(this.finalAnswer);
     },
     row_classes(item) {
       if (item.given !== item.answer) {
@@ -177,7 +219,7 @@ export default {
 }
 
 .checkButton {
-  bottom: 3%;
+  bottom: 5%;
 }
 
 .answerDiv {
