@@ -1,5 +1,10 @@
 <template>
-<course-list color="red" cat="investing"></course-list>
+  <v-container>
+    <div class="div-wrapper">
+      <h1>Work in progress</h1>
+      <course-list cat="investing"></course-list>
+    </div>
+  </v-container>
 </template>
 
 <script>
@@ -9,10 +14,13 @@ export default {
   name: "Investing",
   components: {
     CourseList,
-  }
+  },
 };
 </script>
 
 <style scoped>
-
+.div-wrapper {
+  backdrop-filter: blur(1rem);
+  height: 80vh;
+}
 </style>

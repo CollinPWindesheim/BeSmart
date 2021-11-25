@@ -24,6 +24,21 @@ const routes = [
     name: "Investing",
     component: () => import("../views/Investing.vue"),
   },
+  {
+    path: "/saving",
+    name: "Saving",
+    component: () => import("../views/Saving.vue"),
+  },
+  {
+    path: "/quizzes",
+    name: "Quizzes",
+    component: () => import("../views/Quizzes.vue"),
+  },
+  {
+    path: "/quiz/:id",
+    name: "Quiz",
+    component: () => import("../views/Quiz.vue"),
+  },
 ];
 
 const router = new VueRouter({

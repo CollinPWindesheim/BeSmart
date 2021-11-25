@@ -1,6 +1,6 @@
 <template>
   <div id="containter">
-    <course-list cat="money" color="blue"></course-list>
+    <course-list cat="money"></course-list>
   </div>
 </template>
 
@@ -11,11 +11,8 @@ export default {
   name: "Money",
   components: {
     CourseList,
-  }
-
+  },
 };
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
