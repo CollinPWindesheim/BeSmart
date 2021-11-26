@@ -102,14 +102,14 @@
           <h3>Are you sure you want to quit?</h3>
           <br />
           <v-btn class="ma-1" color="error" @click="closeAll" outlined
-          >Yes</v-btn
+            >Yes</v-btn
           >
           <v-btn
             class="ma-1"
             color="success"
             @click="YesNoDialog = false"
             outlined
-          >No</v-btn
+            >No</v-btn
           >
         </v-card-text>
       </v-card>
@@ -127,6 +127,8 @@ export default {
     return {
       radioGroup: [],
       finalAnswer: {
+        name: "",
+        cat: "",
         perc: 0,
         answerCheck: [],
       },
@@ -157,8 +159,8 @@ export default {
       this.tab = this.tab + 1;
     },
     tabBackward() {
-      if (this.tab === 0){
-        this.tab = this.Quiz.questions.length
+      if (this.tab === 0) {
+        this.tab = this.Quiz.questions.length;
       } else {
         this.tab = this.tab - 1;
       }
@@ -191,6 +193,8 @@ export default {
       }
 
       this.finalAnswer.perc = percent;
+      this.finalAnswer.name = this.Quiz.name;
+      this.finalAnswer.cat = this.Quiz.cat;
 
       // Put score in database here this.finalAnswer
       console.log(this.finalAnswer);

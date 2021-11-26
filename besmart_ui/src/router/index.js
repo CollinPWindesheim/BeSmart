@@ -39,6 +39,11 @@ const routes = [
     name: "Quiz",
     component: () => import("../views/Quiz.vue"),
   },
+  {
+    path: "/grades",
+    name: "Grades",
+    component: () => import("../views/Grades.vue"),
+  },
 ];
 
 const router = new VueRouter({

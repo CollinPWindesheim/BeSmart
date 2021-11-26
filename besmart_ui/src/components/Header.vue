@@ -70,11 +70,15 @@
           </v-list-item>
           <v-list-item v-bind:to="'/quizzes'">
             <v-list-item-icon>
-              <v-icon color="white"
-                >mdi-clipboard-check-multiple-outline</v-icon
-              >
+              <v-icon color="white">mdi-account-question</v-icon>
             </v-list-item-icon>
             <v-list-item-title class="menu-items">Quizzes</v-list-item-title>
+          </v-list-item>
+          <v-list-item v-bind:to="'/grades'">
+            <v-list-item-icon>
+              <v-icon color="white">mdi-clipboard-check-multiple-outline</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title class="menu-items">Grades</v-list-item-title>
           </v-list-item>
           <v-list-item v-bind:to="'/about'">
             <v-list-item-icon>
