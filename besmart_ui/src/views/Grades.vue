@@ -1,5 +1,5 @@
 <template>
-  <div class="div-wrapper">
+  <v-container class="div-wrapper">
     <v-simple-table fixed-header height="300px">
       <template v-slot:default>
         <thead>
@@ -17,7 +17,7 @@
         </tbody>
       </template>
     </v-simple-table>
-  </div>
+  </v-container>
 </template>
 
 <script>
@@ -70,6 +70,7 @@ export default {
 
 <style scoped>
 .div-wrapper {
+  margin-top: 1%;
   backdrop-filter: blur(1rem);
   height: 80vh;
 }
