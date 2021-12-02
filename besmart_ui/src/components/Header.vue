@@ -16,20 +16,17 @@
         <h1>BeSmart</h1>
       </div>
 
-      <!--      <v-spacer></v-spacer>-->
-
-      <!--      <v-btn-->
-      <!--        target="_blank"-->
-      <!--        text-->
-      <!--      >-->
-      <!--        <span class="mr-2">Login</span>-->
-      <!--      </v-btn>-->
-      <!--      <v-btn-->
-      <!--        target="_blank"-->
-      <!--        text-->
-      <!--      >-->
-      <!--        <span class="mr-2">Register</span>-->
-      <!--      </v-btn>-->
+      <v-spacer></v-spacer>
+      <span v-if="isLoggedIn">Welcome, {{ currentUser }}</span>
+      <v-btn target="_blank" text @click="logout" v-if="isLoggedIn">
+        <span class="mr-2" style="color: white">Logout</span>
+      </v-btn>
+      <v-btn target="_blank" text @click="login" v-if="!isLoggedIn">
+        <span class="mr-2" style="color: white">Login</span>
+      </v-btn>
+      <v-btn target="_blank" text @click="signup" v-if="!isLoggedIn">
+        <span class="mr-2" style="color: white">Register</span>
+      </v-btn>
     </v-app-bar>
 
     <v-navigation-drawer
@@ -89,12 +86,44 @@
 </template>
 
 <script>
+import router from "@/router";
+import { getAuth, signOut } from "firebase/auth";
+
 export default {
   name: "Header",
   data: () => ({
     drawer: false,
     group: null,
+    name: "",
+    isLoggedIn: false,
+    currentUser: false,
   }),
+  methods: {
+    login() {
+      router.push("Login");
+    },
+    signup() {
+      router.push("SignUp");
+    },
+    logout() {
+      const auth = getAuth();
+      signOut(auth)
+        .then(() => {
+          router.push("/");
+        })
+        .catch((error) => {
+          alert(error.message);
+        });
+    },
+  },
+  created() {
+    const auth = getAuth();
+
+    if (auth.currentUser) {
+      this.isLoggedIn = true;
+      this.currentUser = auth.currentUser.displayName;
+    }
+  },
 };
 </script>
 
