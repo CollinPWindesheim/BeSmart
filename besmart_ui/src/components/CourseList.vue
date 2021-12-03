@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <Course v-model="showDialog" :data="dialogData" :color="color" />
+    <Course v-model="showDialog" :data="dialogData" />
     <v-row>
       <v-col
         v-for="item in filterProductsByCategory"

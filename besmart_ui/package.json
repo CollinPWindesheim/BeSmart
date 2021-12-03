@@ -10,6 +10,7 @@
   "dependencies": {
     "@vue/ui": "^0.12.5",
     "core-js": "^3.6.5",
+    "firebase": "^9.5.0",
     "register-service-worker": "^1.7.1",
     "vue-router": "^3.2.0",
     "vue-youtube": "^1.4.0",
