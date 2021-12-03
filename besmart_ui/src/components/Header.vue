@@ -120,6 +120,7 @@ export default {
     const auth = getAuth();
 
     if (auth.currentUser) {
+      console.log(auth.currentUser);
       this.isLoggedIn = true;
       this.currentUser = auth.currentUser.displayName;
     }

@@ -60,11 +60,17 @@ const routes = [
     path: "/login",
     name: "Login",
     component: () => import("../views/Login.vue"),
+    meta: {
+      requiresGuest: true
+    }
   },
   {
     path: "/signup",
     name: "SignUp",
     component: () => import("../views/SignUp.vue"),
+    meta: {
+      requiresGuest: true
+    }
   },
 ];
 
@@ -84,8 +90,17 @@ router.beforeEach((to, from, next) => {
     } else {
       next()
     }
+  } else if (to.matched.some(record => record.meta.requiresGuest)) {
+    if (getAuth().currentUser) {
+      next({
+        path: '/',
+        query: { redirect: to.fullPath }
+      });
+    } else {
+      next()
+    }
   } else {
-    next() // make sure to always call next()!
+    next();
   }
 })
 

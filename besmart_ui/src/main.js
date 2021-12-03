@@ -26,16 +26,10 @@ initializeApp(firebaseConfig);
 
 
 const auth = getAuth();
-onAuthStateChanged(auth, (user) => {
-  if (user) {
-    new Vue({
-      router,
-      store,
-      vuetify,
-      VueYoutube,
-      render: (h) => h(App),
-    }).$mount("#app");
-  } else {
+let app;
+
+onAuthStateChanged(auth, () => {
+  if (!app) {
     new Vue({
       router,
       store,
@@ -44,4 +38,4 @@ onAuthStateChanged(auth, (user) => {
       render: (h) => h(App),
     }).$mount("#app");
   }
-});
+})

@@ -84,9 +84,14 @@ export default {
       timeout: 6000,
       snackColor: "",
       rules: {
-        req: [v => (v || '').length > 0 || 'This field is required'],
-        email: [v => !v || /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail must be valid'],
-      }
+        req: [(v) => (v || "").length > 0 || "This field is required"],
+        email: [
+          (v) =>
+            !v ||
+            /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) ||
+            "E-mail must be valid",
+        ],
+      },
     };
   },
   methods: {
@@ -109,6 +114,7 @@ export default {
             });
           this.snackbar = true;
           this.snackColor = "green";
+          this.$router.go({ path: this.$router.path });
         })
         .catch((error) => {
           this.errorCode = error.code;
@@ -120,9 +126,10 @@ export default {
   },
   computed: {
     passwordConfirmationRule() {
-      return () => (this.password === this.passwordConfirm) || 'Password must match'
+      return () =>
+        this.password === this.passwordConfirm || "Password must match";
     },
-  }
+  },
 };
 </script>
 
