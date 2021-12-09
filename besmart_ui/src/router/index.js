@@ -72,6 +72,14 @@ const routes = [
       requiresGuest: true
     }
   },
+  {
+    path: "/course/:id",
+    name: "CourseView",
+    component: () => import("../views/CourseView.vue"),
+    meta: {
+      requiresAuth: true
+    }
+  },
 ];
 
 const router = new VueRouter({

@@ -40,9 +40,10 @@ export default {
 </script>
 <style>
 .main-wrap {
-  background-image: url("./assets/background-image.jpg");
-  background-size: 100%;
-  background-attachment: fixed;
+  /*background-image: url("./assets/background-image.jpg");*/
+  /*background-size: 100%;*/
+  /*background-attachment: fixed;*/
+  background-image: linear-gradient(45deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%);
 }
 
 @media only screen and (max-width: 600px) {

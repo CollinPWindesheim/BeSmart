@@ -1,74 +1,14 @@
 <template>
-  <v-container>
-    <v-row>
-      <v-col
-        v-for="item in filterProductsByCategory"
-        :key="item.id"
-        cols="12"
-        md="4"
-      >
-        <v-hover v-slot="{ hover }">
-          <v-card
-            class="mx-auto courseCard"
-            color="#263238"
-            dark
-            max-width="400"
-            :elevation="hover ? 12 : 2"
-          >
-            <v-card-title>
-              <span class="text-h6 font-weight-bold">{{ item.title }}</span>
-            </v-card-title>
-
-            <v-card-text class="text-h5 font-weight-bold">
-              {{ item.description }}
-            </v-card-text>
-
-            <v-card-actions>
-              <v-list-item class="grow">
-                <v-btn
-                  outlined
-                  elevation="24"
-                  color="#F7504E"
-                  :to="'/course/' + item.id"
-                >
-                  Start course
-                </v-btn>
-                <!--              <v-row-->
-                <!--                align="center"-->
-                <!--                justify="end"-->
-                <!--              >-->
-                <!--                <v-btn fab small color="white">-->
-                <!--                  <v-icon style="color: red">-->
-                <!--                    mdi-heart-->
-                <!--                  </v-icon>-->
-                <!--                </v-btn>-->
-                <!--                <span class="mr-1"> </span>-->
-                <!--                <span class="subheading mr-2">256</span>-->
-                <!--                <span class="mr-1"> </span>-->
-                <!--                <v-btn fab small color="white">-->
-                <!--                  <v-icon style="color: black">-->
-                <!--                    mdi-comment-quote-->
-                <!--                  </v-icon>-->
-                <!--                </v-btn>-->
-                <!--                <span class="mr-1"> </span>-->
-                <!--                <span class="subheading">45</span>-->
-                <!--              </v-row>-->
-              </v-list-item>
-            </v-card-actions>
-          </v-card>
-        </v-hover>
-      </v-col>
-    </v-row>
-  </v-container>
+  <course :data="Courses[this.$route.params.id]"></course>
 </template>
 
 <script>
+import Course from "@/components/Course";
+
 export default {
-  name: "CourseList",
+  name: "CourseView",
   components: {
-  },
-  props: {
-    cat: String,
+    Course,
   },
   data() {
     return {
@@ -80,158 +20,158 @@ export default {
           category: "money",
           subjects: [
             {
-              id: 1,
+              id: 0,
               name: "Bartering",
               slide:
                 "The oldest form of transaction is bartering. This method of trading goods or services uses no currency to settle the payments. For example, a farmer wants fish from the local fisherman, so he pays the fisherman with crops from his farmland to settle the payment. ",
             },
             {
-              id: 2,
+              id: 1,
               name: "Bartering",
               slide:
                 "There are a couple of limitations to this method. First of all, what if the fisherman is not interested in everything the farmer has to offer? He likes fish so why would he need the crops from the farmer? This way the farmer cannot propose a trade to the fisherman.",
             },
             {
-              id: 3,
+              id: 2,
               name: "Bartering",
               slide:
                 "Secondly, a party might feel like he is not getting an equal value out of the trade. For example, the farmer receives two fish (let’s say these both cost 5 euros a piece if calculated in to euros), and the farmer gives 10 potatoes back, but these 10 would be the equivalent of 12 euros. If they used a common currency, the farmer could just give 10 euros to the fisherman, but because he can only offer whole potatoes, most of the time on of the parties comes out a little less good compared to the other. ",
             },
             {
-              id: 4,
+              id: 3,
               name: "Bartering",
               slide:
                 "Another limitation is the difficulty of storing value for the long term. If you want to save products to ensure your financial future, all you need to know is what product everyone wants to have, and stock up on this product for a long time. Nowadays you know everyone wants to have euros, dollars etc., but back then there was not a clear product to have for storing value. ",
             },
             {
-              id: 5,
+              id: 4,
               name: "Bartering",
               slide: "https://www.youtube.com/watch?v=LfgVLxUN-mg",
             },
             {
-              id: 6,
+              id: 5,
               name: "Commodity money",
               slide:
                 "After bartering, from about 1000 BC, commodity money was started being used. Commodity money is money whose value comes from the resource it is made out of (also known as the intrinsic value) or the use of the object in itself. A few examples of commodities that have been used throughout the times are: ",
             },
             // {id: 7, name: "Commodity money", slide: "@/assets/slideImageCommodity.jpg"},
             {
-              id: 8,
+              id: 6,
               name: "Commodity money",
               slide:
                 "A popular form of commodity money at the time, were metal coins. The value of these coins came from the weight of the metal that the coin was made out of. A problem with this is, the more people find of this metal around the world, the more the value of this metal and thus the coins decreases. It also occurred that people manipulated the coins by removing some of the metal thus reducing their value.",
             },
             {
-              id: 9,
+              id: 7,
               name: "Commodity money",
               slide:
                 "A pro is that you could use these coins to pay for almost everything, since they were widely accepted, and so you did not have to rely on bartering.",
             },
             {
-              id: 10,
+              id: 8,
               name: "Paper money",
               slide:
                 "During the 11th century, paper money was introduced in Song dynasty China.",
             },
             {
-              id: 11,
+              id: 9,
               name: "Paper money",
               slide:
                 "Before this eventually happened, paper money was first seen in the form of banknotes since the seventh century, in the Tang dynasty. Here the banknotes first had the purpose of handling credit. A reason for this was, that merchants would otherwise have to carry heavy loads of coins with them when they made bigger trades. So instead of carrying these heavy bags, they had banknotes, which had the corresponding amount of coins in numbers written on it.",
             },
             {
-              id: 12,
+              id: 10,
               name: "Paper money",
               slide:
                 "During these times the banknotes were used alongside the already existing coins. Over the next several hundred years, the principles of paper money were continuously being refined and, in the 11th century when travelers like Marco Polo came back from China to Europe in the 13th century, the idea of paper money came back with them. It would still take around 300 years before it was adopted and implemented in Europe, with Sweden being the earliest adopter.",
             },
             {
-              id: 13,
+              id: 11,
               name: "Paper money",
               slide:
                 "The banknotes used in Europe at that time could be converted into gold or silver by application at the bank. A noteworthy sidenote; these banks were not in the hands of the government at first. Over time, governments started taking the rights to issue banknotes solely for themselves. When they did, the banks said they backed the money by gold or silver. So theoretically, if you handed in the paper money at the bank, the bank would hand you the equivalent in gold or silver back.",
             },
             {
-              id: 14,
+              id: 12,
               name: "Gold standard",
               slide:
                 "When money is backed by gold, it is called the “Gold standard”.",
             },
             {
-              id: 15,
+              id: 13,
               name: "Gold standard",
               slide:
                 "There is a fixed supply of gold in the world, and the money in circulation would be backed by that amount. For every dollar of paper money you turn in at the bank, you would get a dollar in gold back. This way you have a little amount of inflation, since new gold is hard to find and can not be made by humans.",
             },
             {
-              id: 16,
+              id: 14,
               name: "Gold standard",
               slide:
                 "From the 1870s to the early 1920s, and from the late 1920s to 1932 as well as from 1944 until 1971 the gold standard was the basics for the international monetary system. In 1971, american president Nixon took the dollar of the gold standard. Since then, the US dollar, and thus all national currencies are free-floating currencies. This means that these currencies are allowed to fluctuate in response to foreign exchange market events.",
             },
             {
-              id: 17,
+              id: 15,
               name: "Gold standard",
               slide:
                 "Furthermore, money is now being printed by central banks (who are not chosen by the people) out of thin air, which causes inflation and could lead to hyperinflation.",
             },
             {
-              id: 18,
+              id: 16,
               name: "Inflation",
               slide:
                 "Inflation is the decline of purchasing power of a given currency over time.",
             },
             {
-              id: 19,
+              id: 17,
               name: "Inflation",
               slide:
                 "In every country that has a fiat currency (“a government-issued currency that is not backed by a commodity such as gold”, like the euro and the dollar), inflation increases each year, and most of the time because of this, the purchasing power decreases.",
             },
             {
-              id: 20,
+              id: 18,
               name: "Inflation",
               slide:
                 "This means that if you, for example, had 10.000 euros last year and the inflation rate was 4%, you would still have 10.000 euros on your savings account, but now you can only buy something that was worth 9600 euros last year. Inflation increased, and your purchasing power decreased.",
             },
             {
-              id: 21,
+              id: 19,
               name: "Inflation",
               slide:
                 "If this happens year after year, this can have a significant impact on your life. This makes saving harder, and also impacts your daily life. Products in the supermarket get more expensive, gas prices skyrocket etc. If you do not get a pay raise each year, you essentially get a pay cut each year due to inflation, since you earn the same amount of money, while this money itself is losing value due to more being printed, while  at the same time companies raise their prices to battle inflation.",
             },
             {
-              id: 22,
+              id: 20,
               name: "Inflation",
               slide:
                 "You can also have deflation, this usually happens to products that are scarce and can not be easily made or printed out of thin air, like gold or bitcoin. When something is deflationary, it gets more valuable over time.",
             },
             // {id: 23, name: "Inflation", slide: require("../assets/slideImageInflation.png")},
             {
-              id: 24,
+              id: 21,
               name: "Digital money",
               slide:
                 "Since the gold standard was abandoned, in the late 20th century payment cards became popular. These cards were widely adopted and showed that you do not need to have physical money for all of your transactions.",
             },
             {
-              id: 25,
+              id: 22,
               name: "Digital money",
               slide:
                 "The development of computer technology sparked the concept of digital money. By 1990, all money transferred between the central and commercial banks of the United States of America was digital. By 2000 most money was digital (in the western world), this means they were kept track of in databases.",
             },
             {
-              id: 26,
+              id: 23,
               name: "Digital money",
               slide:
                 "Digital money can be an easier and faster method of payment than physical (cash), with digital money you can pay someone in the next town over without having to meet him in real life and handing him the money.",
             },
             {
-              id: 27,
+              id: 24,
               name: "Digital money",
               slide:
                 "It is also easier to store, 100.000 euros in physical money is harder to store than 100.000 on your bank account (in other words, in a database).",
             },
             {
-              id: 28,
+              id: 25,
               name: "Digital money",
               slide:
                 "A couple of disadvantages of digital money is, that it is easier for governments to print, it removes a layer of privacy, and it is easier to be stolen. In 2020 more than 40% of all the dollars in its entire existence was “printed”, economics are worried this will cause very high inflation. When you buy something via your bank, the bank knows where and sometimes even on what you spend your money, this is a lot harder to know when you use physical money. It is also easier to get someones money in digital form, than physical. This has partly to do with the advantage that it is easier to store, since the disadvantage of this is, that when someone gets access to it, it will be also easy to steal larger sums at once. Additionally, people who are not very tech-savvy, or who are gullible, can be the victims of online scams. People go to extreme lengths to get, for example, elderly people to hand them their money, by pretending to be their family or their bank.",
@@ -251,7 +191,7 @@ export default {
           category: "money",
           subjects: [
             {
-              id: 29,
+              id: 0,
               name: "Bitcoin",
               slide:
                 "After digital money became mainstream, some people brainstormed about the idea of decentralized and/or peer-to-peer money. Decentralized money means, that no one is the owner of the currency. The classic banking system is very centralized and has owners, governments and central banks decide who prints the money and how much. Commercial banks, like ABN Amro, have ownership over your money while you have it stored in their database.",
@@ -349,29 +289,9 @@ export default {
           ],
         },
       ],
-      showDialog: false,
-      dialogData: null,
     };
-  },
-  computed: {
-    filterProductsByCategory: function () {
-      return this.Courses.filter(
-        (course) => !course.category.indexOf(this.cat)
-      );
-    },
-  },
-  methods: {
-    openDialog(data) {
-      this.showDialog = true;
-      this.dialogData = data;
-    },
   },
 };
 </script>
 
-<style scoped>
-.courseCard {
-  margin: 10px;
-  position: relative;
-}
-</style>
+<style scoped></style>

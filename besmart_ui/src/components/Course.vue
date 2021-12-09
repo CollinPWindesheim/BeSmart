@@ -1,75 +1,68 @@
 <template>
-  <div class="text-center">
-    <v-dialog v-model="show" persistent>
-      <v-card>
-        <v-card-title class="text-h5 grey lighten-2">
-          {{ data.title }}
-        </v-card-title>
+  <v-container class="div-wrapper">
+    <v-card style="text-align: center">
+      <v-tabs
+        v-model="tab"
+        background-color="#F7504E"
+        dark
+        next-icon="mdi-arrow-right-bold-box-outline"
+        prev-icon="mdi-arrow-left-bold-box-outline"
+        show-arrows
+      >
+        <v-tab v-for="item in data.subjects" :key="item.id">
+          Slide {{ item.id + 1 }}
+        </v-tab>
+      </v-tabs>
 
-        <v-carousel v-model="model" :continuous="false">
-          <v-carousel-item>
-            <v-parallax
-              dark
-              src="https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg"
-            >
-              <v-row align="center" justify="center">
-                <v-col class="text-center" cols="12">
-                  <h1 class="text-h4 font-weight-thin mb-4">
-                    {{ data.title }}
-                  </h1>
-                  <h4 class="subheading">Thank you for choosing B€smart</h4>
-                </v-col>
-              </v-row>
-            </v-parallax>
-          </v-carousel-item>
-          <v-carousel-item v-for="item in data.subjects" :key="item.id">
-            <v-sheet :color="color" height="100%">
-              <v-row class="fill-height" align="center" justify="center">
-                <div
-                  style="
-                    width: 100%;
-                    padding-left: 10%;
-                    padding-right: 10%;
-                    text-align: center;
-                  "
-                >
-                  <h2>{{ item.name }}</h2>
-                  <div v-if="item.slide.includes('https')">
-                    <youtube :video-id="getID(item.slide)[1]" />
-                  </div>
-                  <div v-else-if="item.slide.includes('slideImageCommodity')">
-                    <v-img
-                      height="400px"
-                      width="900px"
-                      src="../assets/slideImageCommodity.jpg"
-                    ></v-img>
-                  </div>
-                  <div v-else-if="item.slide.includes('slideImageInflation')">
-                    <v-img
-                      height="400px"
-                      width="900px"
-                      src="../assets/slideImageInflation.png"
-                    ></v-img>
-                  </div>
-                  <div v-else>
-                    {{ item.slide }}
-                  </div>
+      <v-tabs-items v-model="tab">
+        <v-tab-item
+          v-for="item in data.subjects"
+          :key="item.id + 1"
+          class="tab-items"
+          style="
+            background-image: linear-gradient(
+              -225deg,
+              #e3fdf5 0%,
+              #ffe6fa 100%
+            );
+          "
+        >
+          <v-card flat color="transparent">
+            <v-row>
+              <v-col
+                cols="12"
+                class="middle"
+                style="padding-top: 10%"
+                v-if="!item.slide.includes('https')"
+              >
+                <h1>{{ item.name }}</h1>
+              </v-col>
+              <v-col cols="12" v-if="item.slide.includes('https')">
+                <h1>{{ item.name }}</h1>
+              </v-col>
+              <v-col cols="12" align="center">
+                <div v-if="item.slide.includes('https')">
+                  <youtube :video-id="getID(item.slide)[1]" />
                 </div>
-              </v-row>
-            </v-sheet>
-          </v-carousel-item>
-        </v-carousel>
-
-        <v-divider></v-divider>
-
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn color="error" text @click="YesNoDialog = !YesNoDialog">
-            Close
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
+                <div class="middle" v-else>
+                  {{ item.slide }}
+                </div>
+              </v-col>
+            </v-row>
+          </v-card>
+        </v-tab-item>
+      </v-tabs-items>
+    </v-card>
+    <div class="control_div">
+      <v-icon size="50" @click="tabBackward"> mdi-chevron-left </v-icon>
+      <v-icon size="50" @click="tabForward"> mdi-chevron-right </v-icon>
+      <v-btn
+        class="btn-grad"
+        style="position: absolute; right: 0; margin-right: 10px"
+        @click="YesNoDialog = !YesNoDialog"
+        >Close</v-btn
+      >
+    </div>
     <v-dialog v-model="YesNoDialog" width="500">
       <v-card color="blue-grey darken-3" style="padding: 20px">
         <v-card-text style="text-align: center; color: white">
@@ -88,48 +81,86 @@
         </v-card-text>
       </v-card>
     </v-dialog>
-  </div>
+  </v-container>
 </template>
 
 <script>
 export default {
   name: "Course",
   props: {
-    value: Boolean,
     data: Object,
-    color: String,
   },
   data() {
     return {
-      dialog: false,
       YesNoDialog: false,
-      model: 0,
-      colors: ["primary", "secondary", "yellow darken-2", "red", "orange"],
+      tab: null,
     };
-  },
-  computed: {
-    show: {
-      get() {
-        return this.value;
-      },
-      set(value) {
-        this.$emit("input", value);
-      },
-    },
   },
   methods: {
     closeAll() {
-      this.$emit("input", false);
+      //do other things here that you want to do when you close the quiz
+      this.$router.push("/" + this.data.category);
       this.YesNoDialog = false;
+    },
+    tabForward() {
+      this.tab = this.tab + 1;
+    },
+    tabBackward() {
+      if (this.tab === 0) {
+        this.tab = this.Quiz.questions.length;
+      } else {
+        this.tab = this.tab - 1;
+      }
     },
     getID(data) {
       return data.split("=");
-    },
-    randomColor() {
-      return Math.floor(Math.random() * 16777215).toString(16);
     },
   },
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.div-wrapper {
+  margin-top: 1%;
+  backdrop-filter: blur(1rem);
+  height: 80vh;
+}
+
+.tab-items {
+  text-align: center;
+  height: 63vh;
+}
+
+.control_div {
+  text-align: center;
+  padding: 10px;
+}
+
+.btn-grad {
+  background-image: linear-gradient(
+    to right,
+    #ed4264 0%,
+    #ffedbc 51%,
+    #ed4264 100%
+  );
+}
+.btn-grad {
+  text-transform: uppercase;
+  transition: 0.5s;
+  background-size: 200% auto;
+  box-shadow: 0 0 20px #eee;
+  border-radius: 10px;
+  color: black;
+}
+
+.btn-grad:hover {
+  background-position: right center; /* change the direction of the change here */
+  color: #000;
+  text-decoration: none;
+}
+
+.middle {
+  padding-left: 20%;
+  padding-right: 20%;
+}
+</style>

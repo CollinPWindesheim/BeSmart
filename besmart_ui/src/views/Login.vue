@@ -2,10 +2,16 @@
   <v-container>
     <div class="loginDiv">
       <h1>Login</h1>
+      <br/>
       <form ref="form" @submit.prevent="login">
         <v-row>
           <v-col cols="12">
             <v-text-field
+              dense
+              filled
+              rounded
+              item-color="#F7504E"
+              color="#F7504E"
               label="E-mail"
               placeholder="E-mail"
               v-model="email"
@@ -15,6 +21,11 @@
           </v-col>
           <v-col cols="12">
             <v-text-field
+              dense
+              filled
+              rounded
+              item-color="#F7504E"
+              color="#F7504E"
               label="Password"
               placeholder="Password"
               v-model="password"
@@ -23,7 +34,7 @@
             ></v-text-field>
           </v-col>
           <v-col cols="12">
-            <v-btn type="submit">Login</v-btn>
+            <v-btn class="btn-grad" type="submit">Login</v-btn>
           </v-col>
           <v-col cols="12">
             <p>Need an account? <router-link to="/signup">Sign up</router-link></p>
@@ -98,6 +109,22 @@ export default {
   text-align: center;
   padding: 10px;
   border-radius: 10px;
+}
+
+.btn-grad {background-image: linear-gradient(to right, #ED4264 0%, #FFEDBC  51%, #ED4264  100%)}
+.btn-grad {
+  text-transform: uppercase;
+  transition: 0.5s;
+  background-size: 200% auto;
+  box-shadow: 0 0 20px #eee;
+  border-radius: 10px;
+  color: black;
+}
+
+.btn-grad:hover {
+  background-position: right center; /* change the direction of the change here */
+  color: #000;
+  text-decoration: none;
 }
 
 @media only screen and (max-width: 600px) {

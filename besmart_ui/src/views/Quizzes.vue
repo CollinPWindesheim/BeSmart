@@ -26,7 +26,7 @@
         <v-hover v-slot="{ hover }">
           <v-card
             class="mx-auto courseCard"
-            color="#F7504E"
+            color="#263238"
             dark
             max-width="400"
             max-height="300"
@@ -36,7 +36,7 @@
               <span class="text-h6 font-weight-light"
                 >{{ item.name }}&nbsp;</span
               >
-              <v-chip>{{ item.cat }}</v-chip>
+              <v-chip color="#f7504e">{{ item.cat }}</v-chip>
             </v-card-title>
             <v-card-text class="text-h5 font-weight-bold">
               Have you completed the course "{{ item.name }}"? If yes, this is a
@@ -47,9 +47,7 @@
               <v-list-item class="grow">
                 <v-btn
                   outlined
-                  rounded
-                  text
-                  style="background-color: white; color: black"
+                  color="#f7504e"
                   v-bind:to="'/quiz/' + item.id"
                 >
                   Start quiz

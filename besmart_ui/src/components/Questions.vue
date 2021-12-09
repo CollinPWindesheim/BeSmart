@@ -1,6 +1,6 @@
 <template>
   <v-container class="div-wrapper">
-    <v-card style="text-align: center">
+    <v-card style="text-align: center;">
       <v-tabs
         v-model="tab"
         background-color="#F7504E"
@@ -20,8 +20,9 @@
           v-for="item in Quiz.questions"
           :key="item.id + 1"
           class="tab-items"
+          style="background-image: linear-gradient(-225deg, #E3FDF5 0%, #FFE6FA 100%);"
         >
-          <v-card flat>
+          <v-card flat color="transparent">
             <v-row>
               <v-col cols="12">
                 <h1>{{ item.question }}</h1>
@@ -43,7 +44,7 @@
             </v-row>
           </v-card>
         </v-tab-item>
-        <v-tab-item class="tab-items" style="opacity: 100%" key="finish">
+        <v-tab-item class="tab-items" style="opacity: 100%; background-image: linear-gradient(to top, #dfe9f3 0%, white 100%);" key="finish">
           <v-progress-linear
             :value="finalAnswer.perc"
             height="50"
@@ -87,15 +88,17 @@
           >
         </v-tab-item>
       </v-tabs-items>
+    </v-card>
+    <div class="control_div">
       <v-icon size="50" @click="tabBackward"> mdi-chevron-left </v-icon>
       <v-icon size="50" @click="tabForward"> mdi-chevron-right </v-icon>
       <v-btn
-        color="error"
+        class="btn-grad"
         style="position: absolute; right: 0; margin-right: 10px"
         @click="YesNoDialog = !YesNoDialog"
-        >Close</v-btn
+      >Close</v-btn
       >
-    </v-card>
+    </div>
     <v-dialog v-model="YesNoDialog" width="500">
       <v-card color="blue-grey darken-3" style="padding: 20px">
         <v-card-text style="text-align: center; color: white">
@@ -243,5 +246,26 @@ export default {
 
 tr:hover {
   color: black !important;
+}
+
+.control_div{
+  text-align: center;
+  padding: 10px;
+}
+
+.btn-grad {background-image: linear-gradient(to right, #ED4264 0%, #FFEDBC  51%, #ED4264  100%)}
+.btn-grad {
+  text-transform: uppercase;
+  transition: 0.5s;
+  background-size: 200% auto;
+  box-shadow: 0 0 20px #eee;
+  border-radius: 10px;
+  color: black;
+}
+
+.btn-grad:hover {
+  background-position: right center; /* change the direction of the change here */
+  color: #000;
+  text-decoration: none;
 }
 </style>
