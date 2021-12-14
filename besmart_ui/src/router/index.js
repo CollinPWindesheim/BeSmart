@@ -80,6 +80,11 @@ const routes = [
       requiresAuth: true
     }
   },
+  {
+    path: "/grades",
+    name: "Grades",
+    component: () => import("../views/Grades.vue"),
+  },
 ];
 
 const router = new VueRouter({
