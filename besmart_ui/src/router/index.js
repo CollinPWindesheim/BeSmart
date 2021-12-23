@@ -84,6 +84,9 @@ const routes = [
     path: "/grades",
     name: "Grades",
     component: () => import("../views/Grades.vue"),
+    meta: {
+      requiresAuth: true
+    }
   },
 ];
 

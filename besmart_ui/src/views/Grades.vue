@@ -7,6 +7,8 @@
             <th class="text-left">Name</th>
             <th class="text-center">Category</th>
             <th class="text-center">Percentage</th>
+            <th class="text-center">See your scores</th>
+            <th class="text-center">go to quiz</th>
           </tr>
         </thead>
         <tbody style="text-align: left">
@@ -15,15 +17,41 @@
             <td class="text-center">{{ item.cat }}</td>
             <td class="text-center">
               <v-progress-circular
-                style="margin: 5px;"
+                style="margin: 5px"
                 :rotate="360"
                 :size="80"
                 :width="15"
                 :value="item.perc"
-                color="#f7504e">
+                color="#f7504e"
+              >
                 {{ item.perc }}
               </v-progress-circular>
             </td>
+            <td class="text-center">
+              <v-btn
+                class="mx-2"
+                fab
+                dark
+                x-large
+                color="#f7504e"
+                @click="showScoreDialog = !showScoreDialog"
+              >
+                <v-icon dark> mdi-minus </v-icon>
+              </v-btn>
+            </td>
+            <td class="text-center">
+              <v-btn
+                class="mx-2"
+                fab
+                dark
+                x-large
+                color="#f7504e"
+                @click="goToQuiz(item.course_id)"
+              >
+                <v-icon dark> mdi-minus </v-icon>
+              </v-btn>
+            </td>
+            <score-dialog v-model="showScoreDialog" :data="item.answerCheck"></score-dialog>
           </tr>
         </tbody>
       </template>
@@ -32,118 +60,38 @@
 </template>
 
 <script>
+import { collection, query, where, getDocs } from "firebase/firestore";
+import { db } from "@/main";
+import { getAuth } from "firebase/auth";
+import ScoreDialog from "@/components/ScoreDialog";
+
 export default {
   name: "Grades",
   data() {
     return {
       interval: {},
-      grades: [
-        {
-          id: 0,
-          name: "Bitcoin",
-          cat: "money",
-          perc: 100,
-          answerCheck: [
-            { id: 0, given: "D", answer: "D" },
-            { id: 1, given: "A", answer: "A" },
-            { id: 2, given: "C", answer: "C" },
-            { id: 3, given: "A", answer: "A" },
-            { id: 4, given: "C", answer: "C" },
-          ],
-        },
-        {
-          id: 1,
-          name: "What is money?",
-          cat: "money",
-          perc: 100,
-          answerCheck: [
-            { id: 0, given: "D", answer: "D" },
-            { id: 1, given: "A", answer: "A" },
-            { id: 2, given: "C", answer: "C" },
-            { id: 3, given: "A", answer: "A" },
-            { id: 4, given: "C", answer: "C" },
-          ],
-        },
-        {
-          id: 2,
-          name: "Investing 101",
-          cat: "investing",
-          perc: 100,
-          answerCheck: [
-            { id: 0, given: "D", answer: "D" },
-            { id: 1, given: "A", answer: "A" },
-            { id: 2, given: "C", answer: "C" },
-            { id: 3, given: "A", answer: "A" },
-            { id: 4, given: "C", answer: "C" },
-          ],
-        },
-        {
-          id: 3,
-          name: "Investing 101",
-          cat: "investing",
-          perc: 100,
-          answerCheck: [
-            { id: 0, given: "D", answer: "D" },
-            { id: 1, given: "A", answer: "A" },
-            { id: 2, given: "C", answer: "C" },
-            { id: 3, given: "A", answer: "A" },
-            { id: 4, given: "C", answer: "C" },
-          ],
-        },
-        {
-          id: 4,
-          name: "Investing 101",
-          cat: "investing",
-          perc: 100,
-          answerCheck: [
-            { id: 0, given: "D", answer: "D" },
-            { id: 1, given: "A", answer: "A" },
-            { id: 2, given: "C", answer: "C" },
-            { id: 3, given: "A", answer: "A" },
-            { id: 4, given: "C", answer: "C" },
-          ],
-        },
-        {
-          id: 5,
-          name: "Investing 101",
-          cat: "investing",
-          perc: 100,
-          answerCheck: [
-            { id: 0, given: "D", answer: "D" },
-            { id: 1, given: "A", answer: "A" },
-            { id: 2, given: "C", answer: "C" },
-            { id: 3, given: "A", answer: "A" },
-            { id: 4, given: "C", answer: "C" },
-          ],
-        },
-        {
-          id: 6,
-          name: "Investing 101",
-          cat: "investing",
-          perc: 100,
-          answerCheck: [
-            { id: 0, given: "D", answer: "D" },
-            { id: 1, given: "A", answer: "A" },
-            { id: 2, given: "C", answer: "C" },
-            { id: 3, given: "A", answer: "A" },
-            { id: 4, given: "C", answer: "C" },
-          ],
-        },
-        {
-          id: 7,
-          name: "Investing 101",
-          cat: "investing",
-          perc: 100,
-          answerCheck: [
-            { id: 0, given: "D", answer: "D" },
-            { id: 1, given: "A", answer: "A" },
-            { id: 2, given: "C", answer: "C" },
-            { id: 3, given: "A", answer: "A" },
-            { id: 4, given: "C", answer: "C" },
-          ],
-        },
-      ],
+      grades: [],
+      showScoreDialog: false,
     };
+  },
+  components: {
+    ScoreDialog,
+  },
+  methods: {
+    goToQuiz(course_id) {
+      this.$router.push({ name: "Quiz", params: { id: course_id } });
+    },
+  },
+  async beforeMount() {
+    const auth = getAuth();
+    const q = query(
+      collection(db, "Scores"),
+      where("uid", "==", auth.currentUser.uid)
+    );
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      this.grades.push(doc.data());
+    });
   },
 };
 </script>
