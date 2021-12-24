@@ -36,7 +36,7 @@
                 color="#f7504e"
                 @click="showScoreDialog = !showScoreDialog"
               >
-                <v-icon dark> mdi-minus </v-icon>
+                <v-icon dark> mdi-account-details </v-icon>
               </v-btn>
             </td>
             <td class="text-center">
@@ -48,7 +48,7 @@
                 color="#f7504e"
                 @click="goToQuiz(item.course_id)"
               >
-                <v-icon dark> mdi-minus </v-icon>
+                <v-icon dark> mdi-arrow-u-right-bottom </v-icon>
               </v-btn>
             </td>
             <score-dialog v-model="showScoreDialog" :data="item.answerCheck"></score-dialog>

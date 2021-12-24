@@ -88,6 +88,14 @@ const routes = [
       requiresAuth: true
     }
   },
+  {
+    path: "/budget",
+    name: "Budget",
+    component: () => import("../views/Budget.vue"),
+    meta: {
+      requiresAuth: true
+    }
+  },
 ];
 
 const router = new VueRouter({
