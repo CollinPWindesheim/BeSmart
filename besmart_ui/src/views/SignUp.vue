@@ -118,10 +118,11 @@ export default {
   methods: {
     signup: function () {
       const auth = getAuth();
+      const tempName = this.name;
       createUserWithEmailAndPassword(auth, this.email, this.password)
         .then(() => {
           updateProfile(auth.currentUser, {
-            displayName: this.name,
+            displayName: tempName,
           })
             .then(() => {
               sendEmailVerification(auth.currentUser).then(() => {

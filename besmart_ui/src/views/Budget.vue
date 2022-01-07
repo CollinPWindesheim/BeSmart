@@ -1,36 +1,79 @@
 <template>
   <v-container>
+    <budget-app-dialog
+      v-model="showBudgetAppDialog"
+      :value-type="dialogType"
+      :arrayIdenifier="arrayKeyIdentifier"
+    ></budget-app-dialog>
     <div class="main">
-      <div class="top_categories"></div>
+      <div class="top_categories">
+        <v-row>
+          <v-col cols="3">
+            <div class="topCats">
+              <h3>Hobby</h3>
+              <h2>€{{ getHobby }}</h2>
+            </div>
+          </v-col>
+          <v-col cols="3">
+            <div class="topCats">
+              <h3>Entertainment</h3>
+              <h2>€{{ getEntertainment }}</h2>
+            </div>
+          </v-col>
+          <v-col cols="3">
+            <div class="topCats">
+              <h3>Food</h3>
+              <h2>€{{ getFood }}</h2>
+            </div>
+          </v-col>
+          <v-col cols="3">
+            <div class="topCats">
+              <h3>Miscellaneous</h3>
+              <h2>€{{ getMisc }}</h2>
+            </div>
+          </v-col>
+        </v-row>
+      </div>
       <div class="main_budget">
         <div class="budget_content">
-          <v-simple-table fixed-header height="100%">
-            <thead>
-              <tr>
-                <th>Amount</th>
-                <th>Type</th>
-              </tr>
-            </thead>
-            <tbody v-if="getBudget">
-              <tr v-for="item in getBudget['out']" :key="item.id">
-                <td>€{{ item.value }}</td>
-                <td>{{ item.type }}</td>
-              </tr>
-            </tbody>
+          <v-simple-table fixed-header height="58vh">
+            <template v-slot:default>
+              <thead>
+                <tr>
+                  <th>Amount</th>
+                  <th>Type</th>
+                </tr>
+              </thead>
+              <tbody v-if="select">
+                <tr v-for="item in getBudgetOut" :key="item.id">
+                  <td>€{{ item.value }}</td>
+                  <td>{{ item.type }}</td>
+                </tr>
+              </tbody>
+            </template>
           </v-simple-table>
+          <v-btn
+            fab
+            small
+            color="blue"
+            class="add_btn"
+            @click.stop="openOutDialog"
+          >
+            <v-icon dark> mdi-plus </v-icon>
+          </v-btn>
         </div>
         <div class="budget_content" style="text-align: center">
           <v-row>
             <v-col cols="12"
-              ><h1 v-if="getBudget">€{{ getTotal }}</h1>
+              ><h1 v-if="select">€{{ getTotal }}</h1>
               <h2 v-else>Select a month</h2></v-col
             >
             <v-col cols="12"
-              ><h2 v-if="getBudget">+{{ getIN }}</h2>
+              ><h2 v-if="select">+{{ getIN }}</h2>
               <h2 v-else>Select a month</h2></v-col
             >
             <v-col cols="12"
-              ><h2 v-if="getBudget">-€{{ getOUT }}</h2>
+              ><h2 v-if="select">-€{{ getOUT }}</h2>
               <h2 v-else>Select a month</h2></v-col
             >
             <v-col cols="12"
@@ -47,20 +90,31 @@
           </v-row>
         </div>
         <div class="budget_content">
-          <v-simple-table fixed-header height="100%">
-            <thead>
-              <tr>
-                <th>Amount</th>
-                <th>Type</th>
-              </tr>
-            </thead>
-            <tbody v-if="getBudget">
-              <tr v-for="item in getBudget['in']" :key="item.id">
-                <td>€{{ item.value }}</td>
-                <td>{{ item.type }}</td>
-              </tr>
-            </tbody>
+          <v-simple-table fixed-header height="58vh">
+            <template v-slot:default>
+              <thead>
+                <tr>
+                  <th>Amount</th>
+                  <th>Type</th>
+                </tr>
+              </thead>
+              <tbody v-if="select">
+                <tr v-for="item in getBudgetIn" :key="item.id">
+                  <td>€{{ item.value }}</td>
+                  <td>{{ item.type }}</td>
+                </tr>
+              </tbody>
+            </template>
           </v-simple-table>
+          <v-btn
+            fab
+            small
+            color="blue"
+            class="add_btn"
+            @click.stop="openInDialog"
+          >
+            <v-icon dark> mdi-plus </v-icon>
+          </v-btn>
         </div>
       </div>
     </div>
@@ -80,48 +134,32 @@ import {
 } from "firebase/firestore";
 import { db } from "@/main";
 import { getAuth } from "firebase/auth";
+import budgetAppDialog from "@/components/budgetAppDialog";
 
 export default {
   name: "Budget",
+  components: {
+    budgetAppDialog,
+  },
   data() {
     return {
+      arrayKeyIdentifier: null,
+      dialogType: "",
+      showBudgetAppDialog: false,
       select: "",
       tab: 0,
-      categories: [
-        "Housing",
-        "Transportation",
-        "Food",
-        "Utilities",
-        "Insurance",
-        "Medical & Healthcare",
-        "Saving",
-        "Investing",
-        "Debt payments",
-        "Entertainment",
-        "Partying",
-        "Hobby",
-        "Miscellaneous",
-      ],
       BudgetObject: null,
     };
   },
-  async beforeMount() {
-    const auth = getAuth();
-    const q = query(
-      collection(db, "BudgetApp"),
-      where("UID", "==", auth.currentUser.uid)
-    );
-    const querySnapshot = await getDocs(q);
-    querySnapshot.forEach((doc) => {
-      this.BudgetObject = doc.data();
-    });
-
-    if (this.BudgetObject === null) {
-      await setDoc(doc(db, "BudgetApp", auth.currentUser.uid), {
-        UID: auth.currentUser.uid,
-        app: [],
-      });
-    }
+  watch: {
+    showBudgetAppDialog: function () {
+      if (this.showBudgetAppDialog === false) {
+        this.getBudgetApp();
+      }
+    },
+  },
+  beforeMount() {
+    this.getBudgetApp();
   },
   computed: {
     createMonthList() {
@@ -134,15 +172,32 @@ export default {
       }
       return array;
     },
-    getBudget() {
+    getBudgetIn() {
       let vars;
-      let budgetItems;
+      let budgetItems = [];
       if (this.BudgetObject) {
         if (this.select) {
           vars = this.select.split(" ");
-          this.BudgetObject.app.forEach((item) => {
+          this.BudgetObject.in.forEach((item, key) => {
             if (item.month === vars[0] && item.year === vars[2]) {
-              budgetItems = item;
+              budgetItems.push(item);
+              this.arrayKeyIdentifier = key;
+            }
+          });
+        }
+      }
+      return budgetItems;
+    },
+    getBudgetOut() {
+      let vars;
+      let budgetItems = [];
+      if (this.BudgetObject) {
+        if (this.select) {
+          vars = this.select.split(" ");
+          this.BudgetObject.out.forEach((item, key) => {
+            if (item.month === vars[0] && item.year === vars[2]) {
+              budgetItems.push(item);
+              this.arrayKeyIdentifier = key;
             }
           });
         }
@@ -151,23 +206,67 @@ export default {
     },
     getIN() {
       let value = 0;
-      this.getBudget["in"].forEach((item) => {
-        value = value + item.value;
+      this.getBudgetIn.forEach((item) => {
+        value = value + parseInt(item.value);
       });
       return value;
     },
     getOUT() {
       let value = 0;
-      this.getBudget["out"].forEach((item) => {
-        value = value + item.value;
+      this.getBudgetOut.forEach((item) => {
+        value = value + parseInt(item.value);
       });
       return value;
     },
     getTotal() {
       return this.getIN - this.getOUT;
     },
+    getHobby() {
+      let value = 0;
+      this.getBudgetOut.forEach((item) => {
+        if (item.type === "Hobby") {
+          value = value + parseInt(item.value);
+        }
+      });
+      return value;
+    },
+    getEntertainment() {
+      let value = 0;
+      this.getBudgetOut.forEach((item) => {
+        if (item.type === "Entertainment") {
+          value = value + parseInt(item.value);
+        }
+      });
+      return value;
+    },
+    getFood() {
+      let value = 0;
+      this.getBudgetOut.forEach((item) => {
+        if (item.type === "Food") {
+          value = value + parseInt(item.value);
+        }
+      });
+      return value;
+    },
+    getMisc() {
+      let value = 0;
+      this.getBudgetOut.forEach((item) => {
+        if (item.type === "Miscellaneous") {
+          value = value + parseInt(item.value);
+        }
+      });
+      return value;
+    },
   },
   methods: {
+    openInDialog() {
+      this.showBudgetAppDialog = true;
+      this.dialogType = "in";
+    },
+    openOutDialog() {
+      this.showBudgetAppDialog = true;
+      this.dialogType = "out";
+    },
     async addMonth() {
       const auth = getAuth();
       const docRef = doc(db, "BudgetApp", auth.currentUser.uid);
@@ -191,10 +290,29 @@ export default {
         app: arrayUnion({
           month: months[d.getMonth()],
           year: d.getFullYear().toString(),
+        }),
+      });
+      await this.getBudgetApp();
+    },
+    async getBudgetApp() {
+      const auth = getAuth();
+      const q = query(
+        collection(db, "BudgetApp"),
+        where("UID", "==", auth.currentUser.uid)
+      );
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((doc) => {
+        this.BudgetObject = doc.data();
+      });
+
+      if (this.BudgetObject === null) {
+        await setDoc(doc(db, "BudgetApp", auth.currentUser.uid), {
+          UID: auth.currentUser.uid,
+          app: [],
           in: [],
           out: [],
-        }),
-      })
+        });
+      }
     },
   },
 };
@@ -210,16 +328,30 @@ export default {
 
 .top_categories {
   border: 2px solid black;
-  height: 25%;
+  height: 15%;
 }
 
 .main_budget {
-  height: 75%;
+  height: 85%;
   display: flex;
 }
 
 .budget_content {
   border: 2px solid black;
   flex: 1;
+  position: relative;
+}
+
+.add_btn {
+  position: absolute;
+  right: 4px;
+  top: 4px;
+  z-index: 2;
+}
+
+.topCats {
+  border: 2px solid black;
+  text-align: center;
+  margin: 10px;
 }
 </style>
