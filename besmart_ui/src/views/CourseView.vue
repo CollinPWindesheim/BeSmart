@@ -35,14 +35,14 @@
                 style="padding-top: 10%"
                 v-if="!item.content.includes('https')"
               >
-                <h1>{{ item.name }}</h1>
+                <h1>{{ item.title }}</h1>
               </v-col>
               <v-col cols="12" v-if="item.content.includes('https')">
-                <h1>{{ item.name }}</h1>
+                <h1>{{ item.title }}</h1>
               </v-col>
               <v-col cols="12" align="center">
                 <div v-if="item.content.includes('https')">
-                  <youtube :video-id="getID(item)[1]" />
+                  <youtube :video-id="getID(item.content)[1]" />
                 </div>
                 <div class="middle" v-else>
                   {{ item.content }}

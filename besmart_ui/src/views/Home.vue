@@ -2,7 +2,7 @@
   <div id="container">
     <div class="left_div">
       <v-carousel height="100%" cycle hide-delimiters :show-arrows="false">
-        <v-carousel-item><v-img height="80%" width="80%" class="slide-img" src="../assets/hand.png"></v-img></v-carousel-item>
+        <v-carousel-item><v-img class="slide-img" src="../assets/hand.png"></v-img></v-carousel-item>
         <v-carousel-item><v-img class="slide-img" src="../assets/pig.png"></v-img></v-carousel-item>
       </v-carousel>
     </div>
@@ -92,8 +92,8 @@ export default {
 .left_div {
   position: absolute;
   right: 35%;
-  top: 10%;
-  height: 80%;
+  top: 5%;
+  margin: 10px;
   width: 60%;
 }
 
@@ -157,8 +157,8 @@ export default {
 }
 
 .slide-img{
-  height: 80%;
-  width: 80%;
+  height: 100%;
+  width: 100%;
 }
 
 .center{
