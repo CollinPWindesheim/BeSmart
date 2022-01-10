@@ -5,7 +5,7 @@
         <h2 v-if="valueType === 'in'">Create new income</h2>
         <h2 v-if="valueType === 'out'">Create new expenses</h2>
         <br />
-        <v-form v-if="valueType === 'out'" @submit.prevent="addPayment">
+        <v-form ref="form" v-model="isFormValid" v-if="valueType === 'out'" @submit.prevent="addPayment">
           <v-combobox
             dense
             filled
@@ -13,8 +13,10 @@
             placeholder="Select a category"
             :items="outCategories"
             v-model="select"
+            :rules="rules.req"
           ></v-combobox>
           <v-text-field
+            :rules="rules.req.concat(rules.min)"
             v-model="amount"
             type="number"
             dense
@@ -22,10 +24,11 @@
             rounded
             placeholder="Amount of €"
           ></v-text-field>
-          <v-btn color="green" rounded type="submit">Save</v-btn>
+          <v-btn color="green" :disabled="!isFormValid" rounded type="submit">Save</v-btn>
         </v-form>
-        <v-form v-if="valueType === 'in'" @submit.prevent="addIncome">
+        <v-form ref="form" v-model="isFormValid" v-if="valueType === 'in'" @submit.prevent="addIncome">
           <v-combobox
+            :rules="rules.req"
             dense
             filled
             rounded
@@ -34,6 +37,7 @@
             v-model="select"
           ></v-combobox>
           <v-text-field
+            :rules="rules.req.concat(rules.min)"
             v-model="amount"
             type="number"
             dense
@@ -41,7 +45,7 @@
             rounded
             placeholder="Amount of €"
           ></v-text-field>
-          <v-btn color="green" rounded type="submit">Save</v-btn>
+          <v-btn color="green" :disabled="!isFormValid" rounded type="submit">Save</v-btn>
         </v-form>
       </v-container>
     </v-card>
@@ -62,6 +66,7 @@ export default {
   },
   data() {
     return {
+      isFormValid: false,
       amount: 0,
       select: "",
       outCategories: [
@@ -87,6 +92,10 @@ export default {
         "Sold something",
         "Dividend",
       ],
+      rules: {
+        min: [v => ( v && v > 0 ) || 'Amount cannot be zero, or below zero'],
+        req: [v => (v || '').length > 0 || 'This field is required'],
+      }
     };
   },
   computed: {
