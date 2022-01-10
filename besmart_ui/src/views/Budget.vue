@@ -7,7 +7,7 @@
     ></budget-app-dialog>
     <div class="main">
       <div class="top_categories">
-        <v-row>
+        <v-row class="cat_row">
           <v-col cols="3">
             <div class="topCats">
               <h3>Hobby</h3>
@@ -36,17 +36,17 @@
       </div>
       <div class="main_budget">
         <div class="budget_content">
-          <v-simple-table fixed-header height="58vh">
+          <v-simple-table fixed-header height="60vh">
             <template v-slot:default>
               <thead>
                 <tr>
-                  <th>Amount</th>
+                  <th>Payment amount</th>
                   <th>Type</th>
                 </tr>
               </thead>
               <tbody v-if="select">
                 <tr v-for="item in getBudgetOut" :key="item.id">
-                  <td>€{{ item.value }}</td>
+                  <td>-€{{ item.value }}</td>
                   <td>{{ item.type }}</td>
                 </tr>
               </tbody>
@@ -55,7 +55,7 @@
           <v-btn
             fab
             small
-            color="blue"
+            color="#F7504E"
             class="add_btn"
             @click.stop="openOutDialog"
           >
@@ -69,38 +69,41 @@
               <h2 v-else>Select a month</h2></v-col
             >
             <v-col cols="12"
-              ><h2 v-if="select">+{{ getIN }}</h2>
+              ><h2 v-if="select" style="color: limegreen">+{{ getIN }}</h2>
               <h2 v-else>Select a month</h2></v-col
             >
             <v-col cols="12"
-              ><h2 v-if="select">-€{{ getOUT }}</h2>
+              ><h2 v-if="select" style="color: red">-€{{ getOUT }}</h2>
               <h2 v-else>Select a month</h2></v-col
             >
             <v-col cols="12"
               ><v-combobox
+                color="#F7504E"
+                item-color="#F7504E"
                 v-model="select"
                 :items="createMonthList"
                 label="Choose month"
                 outlined
+                style="margin-left: 20%; margin-right: 20%;"
               ></v-combobox
             ></v-col>
             <v-col>
-              <v-btn @click="addMonth">Add this month</v-btn>
+              <v-btn color="#F7504E" style="color: white" @click="addMonth">Add this month</v-btn>
             </v-col>
           </v-row>
         </div>
         <div class="budget_content">
-          <v-simple-table fixed-header height="58vh">
+          <v-simple-table fixed-header height="60vh">
             <template v-slot:default>
               <thead>
                 <tr>
-                  <th>Amount</th>
+                  <th>Income amount</th>
                   <th>Type</th>
                 </tr>
               </thead>
               <tbody v-if="select">
                 <tr v-for="item in getBudgetIn" :key="item.id">
-                  <td>€{{ item.value }}</td>
+                  <td>+€{{ item.value }}</td>
                   <td>{{ item.type }}</td>
                 </tr>
               </tbody>
@@ -109,7 +112,7 @@
           <v-btn
             fab
             small
-            color="blue"
+            color="#F7504E"
             class="add_btn"
             @click.stop="openInDialog"
           >
@@ -327,17 +330,29 @@ export default {
 }
 
 .top_categories {
-  border: 2px solid black;
   height: 15%;
+  margin-bottom: 2%;
+  position: relative;
+}
+
+.cat_row {
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  position: absolute;
+  top: 25%;
 }
 
 .main_budget {
-  height: 85%;
+  border-radius: 10px;
+  background-color: lightgray;
+  height: 80%;
   display: flex;
+  bottom: 0;
+  padding: 10px;
 }
 
 .budget_content {
-  border: 2px solid black;
   flex: 1;
   position: relative;
 }
@@ -350,8 +365,10 @@ export default {
 }
 
 .topCats {
-  border: 2px solid black;
+  border-radius: 10px;
+  background-color: lightgray;
   text-align: center;
-  margin: 10px;
+  margin-bottom: auto;
+  margin-top: auto;
 }
 </style>

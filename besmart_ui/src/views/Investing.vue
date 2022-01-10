@@ -1,7 +1,6 @@
 <template>
   <v-container>
     <div class="div-wrapper">
-      <h1>Work in progress</h1>
       <course-list cat="investing"></course-list>
     </div>
   </v-container>
