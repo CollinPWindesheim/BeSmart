@@ -210,14 +210,14 @@ export default {
     getIN() {
       let value = 0;
       this.getBudgetIn.forEach((item) => {
-        value = value + parseInt(item.value);
+        value = value + parseFloat(item.value);
       });
       return value;
     },
     getOUT() {
       let value = 0;
       this.getBudgetOut.forEach((item) => {
-        value = value + parseInt(item.value);
+        value = value + parseFloat(item.value);
       });
       return value;
     },
@@ -228,7 +228,7 @@ export default {
       let value = 0;
       this.getBudgetOut.forEach((item) => {
         if (item.type === "Hobby") {
-          value = value + parseInt(item.value);
+          value = value + parseFloat(item.value);
         }
       });
       return value;
@@ -237,7 +237,7 @@ export default {
       let value = 0;
       this.getBudgetOut.forEach((item) => {
         if (item.type === "Entertainment") {
-          value = value + parseInt(item.value);
+          value = value + parseFloat(item.value);
         }
       });
       return value;
@@ -246,7 +246,7 @@ export default {
       let value = 0;
       this.getBudgetOut.forEach((item) => {
         if (item.type === "Food") {
-          value = value + parseInt(item.value);
+          value = value + parseFloat(item.value);
         }
       });
       return value;
@@ -255,7 +255,7 @@ export default {
       let value = 0;
       this.getBudgetOut.forEach((item) => {
         if (item.type === "Miscellaneous") {
-          value = value + parseInt(item.value);
+          value = value + parseFloat(item.value);
         }
       });
       return value;
