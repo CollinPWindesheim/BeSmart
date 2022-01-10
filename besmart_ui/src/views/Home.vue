@@ -1,9 +1,9 @@
 <template>
   <div id="container">
     <div class="left_div">
-      <v-carousel height="100%" cycle hide-delimiters :show-arrows="false">
-        <v-carousel-item><v-img class="slide-img" src="../assets/hand.png"></v-img></v-carousel-item>
-        <v-carousel-item><v-img class="slide-img" src="../assets/pig.png"></v-img></v-carousel-item>
+      <v-carousel height="80vh" cycle hide-delimiters :show-arrows="false">
+        <v-carousel-item><v-img style="height: 90%; width: 80%;" class="slide-img" src="../assets/hand.png"></v-img></v-carousel-item>
+        <v-carousel-item><v-img style="height: 90%; width: 80%;" class="slide-img" src="../assets/pig.png"></v-img></v-carousel-item>
       </v-carousel>
     </div>
     <div class="menu">
