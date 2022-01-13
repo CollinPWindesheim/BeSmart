@@ -41,6 +41,12 @@
           v-model="group"
           active-class="red--text text--accent-4"
         >
+          <v-list-item v-bind:to="'/budget'">
+            <v-list-item-icon>
+              <v-icon color="white">mdi-calculator</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title class="menu-items">Budgeting app</v-list-item-title>
+          </v-list-item>
           <v-list-item v-bind:to="'/'">
             <v-list-item-icon>
               <v-icon color="white">mdi-home</v-icon>
@@ -124,9 +130,8 @@ export default {
     const auth = getAuth();
 
     if (auth.currentUser) {
-      console.log(auth.currentUser);
       this.isLoggedIn = true;
-      this.currentUser = auth.currentUser.displayName;
+      this.currentUser = auth.currentUser.email;
     }
   },
 };

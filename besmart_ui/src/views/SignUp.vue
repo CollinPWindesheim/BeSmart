@@ -3,7 +3,7 @@
     <div class="loginDiv">
       <h1 style="">Create an account</h1>
       <br/>
-      <form ref="form" @submit.prevent="signup">
+      <v-form v-model="isFormValid" ref="form" @submit.prevent="signup">
         <v-row>
           <v-col cols="12">
             <v-text-field
@@ -61,13 +61,13 @@
             ></v-text-field>
           </v-col>
           <v-col cols="12">
-            <v-btn class="btn-grad" type="submit">Create account</v-btn>
+            <v-btn :disabled="!isFormValid" class="btn-grad" type="submit">Create account</v-btn>
           </v-col>
           <v-col cols="12">
             <p>Have an account? <router-link to="/login">Login</router-link></p>
           </v-col>
         </v-row>
-      </form>
+      </v-form>
     </div>
     <v-snackbar v-model="snackbar" :color="snackColor" :timeout="timeout">
       {{ successMessage }}
@@ -93,6 +93,7 @@ export default {
   name: "SignUp",
   data() {
     return {
+      isFormValid: false,
       name: "",
       email: "",
       password: "",
@@ -118,10 +119,11 @@ export default {
   methods: {
     signup: function () {
       const auth = getAuth();
+      const tempName = this.name;
       createUserWithEmailAndPassword(auth, this.email, this.password)
         .then(() => {
           updateProfile(auth.currentUser, {
-            displayName: this.name,
+            displayName: tempName,
           })
             .then(() => {
               sendEmailVerification(auth.currentUser).then(() => {

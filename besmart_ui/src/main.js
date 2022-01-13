@@ -7,6 +7,7 @@ import vuetify from "./plugins/vuetify";
 import VueYoutube from 'vue-youtube';
 import { initializeApp } from "firebase/app";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
 
 Vue.config.productionTip = false;
 
@@ -26,6 +27,7 @@ initializeApp(firebaseConfig);
 
 
 const auth = getAuth();
+export const db = getFirestore();
 let app;
 
 onAuthStateChanged(auth, () => {

@@ -84,6 +84,17 @@ const routes = [
     path: "/grades",
     name: "Grades",
     component: () => import("../views/Grades.vue"),
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: "/budget",
+    name: "Budget",
+    component: () => import("../views/Budget.vue"),
+    meta: {
+      requiresAuth: true
+    }
   },
 ];
 
