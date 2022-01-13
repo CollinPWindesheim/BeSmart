@@ -8,7 +8,7 @@
             <th class="text-center">Category</th>
             <th class="text-center">Percentage</th>
             <th class="text-center">See your scores</th>
-            <th class="text-center">go to quiz</th>
+            <th class="text-center">Go to quiz</th>
           </tr>
         </thead>
         <tbody style="text-align: left">

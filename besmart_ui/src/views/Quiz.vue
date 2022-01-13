@@ -18,7 +18,7 @@
       <v-tabs-items v-model="tab">
         <v-tab-item
           v-for="item in quizData.Questions"
-          :key="item.id + 1"
+          :key="item.id"
           class="tab-items"
           style="
             background-image: linear-gradient(
@@ -152,7 +152,7 @@ export default {
         answerCheck: [],
       },
       color: "",
-      tab: 0,
+      tab: 2,
       YesNoDialog: false,
       quizData: {},
     };
